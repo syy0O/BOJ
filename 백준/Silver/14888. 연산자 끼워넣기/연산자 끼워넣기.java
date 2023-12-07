@@ -1,13 +1,11 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Main {
     private static int[] numbers;
-    private static ArrayList<Integer> operators;
-    private static boolean[] used;
+    private static int[] operators;
 
     private static int minResult = Integer.MAX_VALUE;
     private static int maxResult = Integer.MIN_VALUE;
@@ -19,13 +17,14 @@ public class Main {
     private static final int MULTIPLE = 2;
     private static final int DIVIDE = 3;
 
+    private static int N;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
+        N = Integer.parseInt(br.readLine());
 
         numbers = new int[N];
-        operators = new ArrayList<>();
-        used = new boolean[N];
+        operators = new int[OPERATORS];
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
@@ -35,58 +34,36 @@ public class Main {
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < OPERATORS; i++) {
-            int operatorCnt = Integer.parseInt(st.nextToken());
-            for (int j = 0; j < operatorCnt; j++) {
-                operators.add(i);
-            }
+            operators[i] = Integer.parseInt(st.nextToken());
         }
 
-        backtrack(N, numbers[0], 1);
+        backtrack(numbers[0], 1);
+
         System.out.println(maxResult);
         System.out.println(minResult);
 
     }
 
-    public static void backtrack(int N, int sum, int nextNumberIdx){
+    public static void backtrack(int sum, int idx){
 
-        if (nextNumberIdx == N) {
+        if (idx == N) {
             minResult = Math.min(minResult, sum);
             maxResult = Math.max(maxResult, sum);
             return;
         }
 
-        for (int i = 0; i < N - 1; i++) {
-            if (!used[i]) {
-                used[i] = true;
-                int calculateResult = calculate(operators.get(i), numbers[nextNumberIdx], sum);
-                backtrack(N, calculateResult, nextNumberIdx + 1);
-                used[i] = false;
+        for (int i = 0; i < OPERATORS; i++) {
+            if (operators[i] > 0) {
+                operators[i]--;
+                switch (i) {
+                    case PLUS: backtrack(sum + numbers[idx], idx + 1); break;
+                    case MINUS: backtrack(sum - numbers[idx], idx + 1); break;
+                    case MULTIPLE: backtrack(sum * numbers[idx], idx + 1); break;
+                    case DIVIDE: backtrack(sum / numbers[idx], idx + 1); break;
+                }
+
+                operators[i]++;
             }
-        }
-    }
-
-
-    public static int calculate(int operator, int operand, int sum) {
-        if (operator == PLUS) {
-            return sum + operand;
-        }
-
-        else if (operator == MINUS) {
-            return sum - operand;
-        }
-
-        else if (operator == MULTIPLE) {
-            return sum * operand;
-        }
-
-        else {
-            boolean flag = false;
-            if (sum < 0) {
-                sum *= -1;
-                flag = true;
-            }
-
-            return flag ? (sum / operand) * -1 : sum / operand;
         }
     }
 }

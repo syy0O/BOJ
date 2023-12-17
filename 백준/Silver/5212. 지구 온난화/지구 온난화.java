@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -12,10 +13,7 @@ public class Main {
 
     private static int R, C;
 
-    private static int minRow =  11;
-    private static int minColumn = 11;
-    private static int maxRow = -1;
-    private static int maxColumn= -1;
+    private static int minRow, minColumn,maxRow, maxColumn;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -36,28 +34,30 @@ public class Main {
         for (int r = 0; r < R; r++) {
             for (int c = 0; c < C; c++) {
                 if (map[r][c] == 'X') {
-                    adjoinSeaCnt[r][c] = countSeaCnt(r, c);
+                    adjoinSeaCnt[r][c] = countAdjoinSea(r, c);
                 }
             }
         }
         changeLandToSea();
 
+        getPrintRange();
+        printMap();
+    }
+
+    public static void getPrintRange(){
+        minRow = minColumn = 11;
+        maxRow = maxColumn = -1;
+        
         for (int r = 0; r < R; r++) {
             for (int c = 0; c < C; c++) {
                 if(map[r][c] == 'X') {
                     minRow = Math.min(r, minRow);
                     minColumn = Math.min(c, minColumn);
-
                     maxRow = Math.max(r, maxRow);
                     maxColumn = Math.max(c, maxColumn);
                 }
             }
         }
-
-        printMap();
-
-
-
     }
 
     public static void printMap(){
@@ -79,8 +79,7 @@ public class Main {
         }
     }
 
-
-    public static int countSeaCnt(int nowX, int nowY) {
+    public static int countAdjoinSea(int nowX, int nowY) {
         int cnt = 0;
         for (int i = 0; i < 4; i++) {
             int nx = nowX + dx[i];

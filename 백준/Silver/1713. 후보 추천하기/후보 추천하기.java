@@ -10,7 +10,7 @@ import java.util.TreeMap;
 
 public class Main {
 
-    private static TreeMap<Integer, Candidate> candidates;
+    private static TreeMap<Integer, Candidate> frames;
     private static class Candidate {
         int time;
         int recommendCnt;
@@ -32,30 +32,30 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         int R = Integer.parseInt(br.readLine()); // 추천 횟수
 
-        candidates = new TreeMap<>();
+        frames = new TreeMap<>();
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < R; i++) {
             int candidateNum = Integer.parseInt(st.nextToken());
 
-            if (candidates.size() == N && !candidates.containsKey(candidateNum)) {
-                candidates.remove(findMinRecommend());
-                candidates.put(candidateNum, new Candidate(i, 1));
+            if (frames.size() == N && !frames.containsKey(candidateNum)) {
+                frames.remove(findMinRecommend());
+                frames.put(candidateNum, new Candidate(i, 1));
                 continue;
             }
 
-            if (candidates.containsKey(candidateNum)) {
-                Candidate c = candidates.get(candidateNum);
+            if (frames.containsKey(candidateNum)) {
+                Candidate c = frames.get(candidateNum);
                 c.addRecommendCnt();
-                candidates.put(candidateNum, c);
+                frames.put(candidateNum, c);
             }
             else {
                 Candidate c = new Candidate(i, 1);
-                candidates.put(candidateNum,c);
+                frames.put(candidateNum,c);
             }
         }
 
-        for (Integer number : candidates.keySet()) {
+        for (Integer number : frames.keySet()) {
             bw.write(number+" ");
         }
 
@@ -67,7 +67,7 @@ public class Main {
 
     public static int findMinRecommend() {
         int minCount = Integer.MAX_VALUE;
-        for (Candidate value : candidates.values()) {
+        for (Candidate value : frames.values()) {
             if (minCount > value.recommendCnt) {
                 minCount = value.recommendCnt;
             }
@@ -75,8 +75,8 @@ public class Main {
 
         int minTime = Integer.MAX_VALUE;
         int result = 0;
-        for (Integer idx : candidates.keySet()) {
-            Candidate c = candidates.get(idx);
+        for (Integer idx : frames.keySet()) {
+            Candidate c = frames.get(idx);
             if (c.recommendCnt == minCount && minTime > c.time) {
                 minTime = c.time;
                 result = idx;

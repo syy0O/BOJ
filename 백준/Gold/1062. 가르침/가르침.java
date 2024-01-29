@@ -24,7 +24,10 @@ public class Main {
             words[i] = sb.substring(4,sb.length() - 4);
         }
 
-        if (K >= 5) {
+        if (K == 26) {
+            ans = N;
+        }
+        else if (K >= 5) {
             initUsed();
             findMaxReadableWord(5, K, 0);
         }

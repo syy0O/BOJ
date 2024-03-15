@@ -21,10 +21,7 @@ public class Main {
                 continue;
             }
 
-            for (int j = 1; j < i; j++) {
-                dp[i] = Math.max(dp[i], dp[j]);
-            }
-
+            dp[i] = Math.max(dp[i], dp[i - 1]);
             dp[endDay] = Math.max(dp[endDay], dp[i] + timeWithPrice[i][1]);
         }
 

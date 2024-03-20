@@ -1,34 +1,30 @@
 import java.io.*;
-import java.util.*;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main (String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
+        // N,M 입력
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        int[] numbers = new int[N + 1];
+        // 누적 합 구하기
         int[] prefixSum = new int[N + 1];
-
         st = new StringTokenizer(br.readLine());
         for (int i = 1; i <= N; i++) {
-            numbers[i] = Integer.parseInt(st.nextToken());
+            int curr = Integer.parseInt(st.nextToken());
+            prefixSum[i] = prefixSum[i-1] + curr;
         }
 
-        prefixSum[1] = numbers[1];
-        for (int i = 2; i <= N; i++) {
-            prefixSum[i] = prefixSum[i - 1] + numbers[i];
-        }
-
+        // 구간합 구하기
         for (int t = 0; t < M; t++) {
             st = new StringTokenizer(br.readLine());
-            int i = Integer.parseInt(st.nextToken());
-            int j = Integer.parseInt(st.nextToken());
-
-            bw.write(prefixSum[j] - prefixSum[i-1] + "\n");
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+            bw.write(prefixSum[end] - prefixSum[start - 1] + "\n");
         }
 
         bw.flush();

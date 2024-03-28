@@ -6,25 +6,15 @@ class Solution {
         int minY = Integer.MAX_VALUE;
         int maxX = Integer.MIN_VALUE;
         int maxY = Integer.MIN_VALUE;
+        
         for (int r=0; r<wallpaper.length; r++) {
             String curr = wallpaper[r];    
             for (int c=0;c<curr.length();c++) {
                 if (curr.charAt(c) == '#') {
-                    if (minX > r) {
-                        minX = r;
-                    }
-                    
-                    if (minY > c) {
-                        minY = c;
-                    }
-                    
-                    if (maxX < r+1) {
-                        maxX = r+1;
-                    }
-                    
-                    if (maxY < c+1) {
-                        maxY = c+1;
-                    }
+                    minX = Math.min(minX,r);
+                    minY = Math.min(minY,c);
+                    maxX = Math.max(maxX,r+1);
+                    maxY = Math.max(maxY,c+1);
                 }
             }
         }

@@ -1,28 +1,28 @@
 class Solution {
     public int[] solution(String[] wallpaper) {
         int[] answer = new int[4];
+        int minR,minC,maxR,maxC;
         
-        int minX = Integer.MAX_VALUE;
-        int minY = Integer.MAX_VALUE;
-        int maxX = Integer.MIN_VALUE;
-        int maxY = Integer.MIN_VALUE;
+        minR = minC = 51;
+        maxR = maxC = -1;
+        
         
         for (int r=0; r<wallpaper.length; r++) {
             String curr = wallpaper[r];    
             for (int c=0;c<curr.length();c++) {
                 if (curr.charAt(c) == '#') {
-                    minX = Math.min(minX,r);
-                    minY = Math.min(minY,c);
-                    maxX = Math.max(maxX,r+1);
-                    maxY = Math.max(maxY,c+1);
+                    minR = Math.min(minR,r);
+                    minC = Math.min(minC,c);
+                    maxR = Math.max(maxR,r+1);
+                    maxC = Math.max(maxC,c+1);
                 }
             }
         }
         
-        answer[0] = minX;
-        answer[1] = minY;
-        answer[2] = maxX;
-        answer[3] = maxY;
+        answer[0] = minR;
+        answer[1] = minC;
+        answer[2] = maxR;
+        answer[3] = maxC;
         
         
         return answer;

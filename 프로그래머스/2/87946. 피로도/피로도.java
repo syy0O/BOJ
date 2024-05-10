@@ -10,26 +10,24 @@ class Solution {
         copy = dungeons;
         visited = new boolean[dungeons.length];
         
-        findMaxDungeonCnt(k,0,0);
+        findMaxDungeonCnt(k,0);
         
         return answer;
     }
     
     
-    public static void findMaxDungeonCnt (int fatigue, int idx, int cnt) { 
-        if (idx == copy.length) { 
-            answer = Math.max(answer, cnt);
-            return;
-        }
+    public static void findMaxDungeonCnt (int fatigue, int cnt) { 
         
         for (int i=0;i<copy.length;i++) {
             if (!visited[i] && fatigue >= copy[i][0]) {   
                 visited[i] = true;
-                findMaxDungeonCnt(fatigue-copy[i][1], idx+1, cnt+1);
+                findMaxDungeonCnt(fatigue-copy[i][1], cnt+1);
                 visited[i] = false;
             }
             
-            findMaxDungeonCnt(fatigue, idx+1, cnt);
+            //answer = Math.max(answer, cnt);
         }
+        
+        answer = Math.max(answer, cnt);
     }
 }

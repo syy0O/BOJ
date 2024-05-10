@@ -2,35 +2,34 @@ import java.util.*;
 
 class Solution {
     
-    private static boolean[] used;
-    private static int dungeonCnt = 0;
+    private static int answer = 0;
+    private static boolean[] visited;
+    private static int[][] copy;
     
     public int solution(int k, int[][] dungeons) {
-        int answer = -1;
-        used = new boolean[dungeons.length];
+        copy = dungeons;
+        visited = new boolean[dungeons.length];
         
-        findMaxDungeon(k,0,0,dungeons);
-        answer = dungeonCnt;
+        findMaxDungeonCnt(k,0,0);
+        
         return answer;
     }
     
     
-    public static void findMaxDungeon (int fatigue, int cnt, int ans, int[][] dungeons) {
-        
-        if (cnt == dungeons.length) {
-            dungeonCnt = Math.max(dungeonCnt, ans);
+    public static void findMaxDungeonCnt (int fatigue, int idx, int cnt) { 
+        if (idx == copy.length) { 
+            answer = Math.max(answer, cnt);
             return;
         }
         
-        
-        for (int i=0;i<dungeons.length;i++) {
-            if (!used[i] && fatigue >= dungeons[i][0]) {   
-                used[i] = true;
-                findMaxDungeon(fatigue-dungeons[i][1], cnt+1, ans+1, dungeons);
-                used[i] = false;
+        for (int i=0;i<copy.length;i++) {
+            if (!visited[i] && fatigue >= copy[i][0]) {   
+                visited[i] = true;
+                findMaxDungeonCnt(fatigue-copy[i][1], idx+1, cnt+1);
+                visited[i] = false;
             }
             
-            findMaxDungeon(fatigue, cnt+1, ans, dungeons);
+            findMaxDungeonCnt(fatigue, idx+1, cnt);
         }
     }
 }

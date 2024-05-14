@@ -2,7 +2,7 @@
 // 다익스트라..? -> destination에서 source들 까지의 거리
 // 거꾸로도 풀 수 있을듯..?
 
-// bfs로 풀 수 있을 듯.
+// bfs로 풀 수 있을 듯. (간선의 모든 비용이 같으므로)
 
 import java.util.*;
 
@@ -24,9 +24,6 @@ class Solution {
             edges[roads[i][1]].add(roads[i][0]);
         }
        
-        dist = new int[n+1];
-        Arrays.fill(dist, -1);
-        
         bfs(n, destination);
         
         int[] answer = new int[sources.length];
@@ -39,25 +36,28 @@ class Solution {
     
     public static void bfs(int n, int dest) {
         
-        boolean[] visited = new boolean[n+1];
-        visited[dest] = true;
+        // 거리 초기화
+        dist = new int[n+1];
+        Arrays.fill(dist, -1);  
         dist[dest] = 0;
+    
+        // 방문 초기화
+        boolean[] visited = new boolean[n+1];
+        visited[dest] = true;  
         
         Deque<Integer> queue = new ArrayDeque<>();
         queue.addLast(dest);
         
         while(!queue.isEmpty()) {  
             int now = queue.pollFirst();
-            for (int i=0; i< edges[now].size();i++) {
-                int target = edges[now].get(i);
-                
-                if (!visited[target]){
-                    visited[target] = true;
-                    dist[target] = dist[now] + 1;
-                    queue.addLast(target);
+               
+            for (int next : edges[now]) {
+                if (!visited[next]){
+                    visited[next] = true;
+                    dist[next] = dist[now] + 1;
+                    queue.addLast(next);
                 }
             }
         }
-        
     }
 }

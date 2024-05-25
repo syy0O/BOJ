@@ -4,23 +4,25 @@ class Solution {
     public int[] solution(String[] operations) {
         int[] answer = {0,0};
         
-        TreeSet<Integer> pq = new TreeSet<>();
+        TreeMap<Integer, Integer> pq = new TreeMap<>();
         for (int i=0;i<operations.length;i++) {
             StringTokenizer st = new StringTokenizer(operations[i]);
             String cmd = st.nextToken();
             int value = Integer.parseInt(st.nextToken());
             
             if (cmd.equals("I")) { 
-                pq.add(value);
+                pq.put(value, pq.getOrDefault(value,0)+1);
                 continue;
             }
             
             if (!pq.isEmpty()) {
-               if (value == 1) {
-                   pq.remove(pq.last());
+               if (value == 1 && pq.get(pq.lastKey()) == 1) {
+                   pq.remove(pq.lastKey());
+                   continue;
                }
-                else  {
-                    pq.remove(pq.first());
+               
+                if (value == -1 && pq.get(pq.firstKey()) == 1) {
+                    pq.remove(pq.firstKey());
                 }
             }            
         }
@@ -28,8 +30,8 @@ class Solution {
         
         if (!pq.isEmpty()) {
             answer = new int[2];
-            answer[0] = pq.last();
-            answer[1] = pq.first();
+            answer[0] = pq.lastKey();
+            answer[1] = pq.firstKey();
         }
         
         return answer;

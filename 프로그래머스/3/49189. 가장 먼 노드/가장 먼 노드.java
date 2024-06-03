@@ -2,12 +2,13 @@ import java.util.*;
 
 class Solution {
 
-    private static int[] dist;
-    private static boolean[] visited;
-
+    private int[] dist;
+    private boolean[] visited;
+    private List<Integer>[] edges;
+    
     public int solution(int n, int[][] edge) {
        int answer = 0;
-        List<Integer>[] edges = new ArrayList[n+1];
+        edges = new ArrayList[n+1];
         for (int i=1;i<=n;i++) {
             edges[i] = new ArrayList<>();
         }
@@ -20,6 +21,20 @@ class Solution {
             edges[v2].add(v1);
         }
 
+        findDist(n);
+
+        int max = findMax(n);
+        for (int i=2;i<=n;i++) {
+            if (dist[i] == max) {
+                answer++;
+            }
+        }
+
+        return answer;
+    }
+    
+    public void findDist(int n) {
+        
         dist = new int[n+1];
         dist[1] = 0;
 
@@ -42,22 +57,17 @@ class Solution {
             }
 
         }
-
-
+  
+    }
+    
+    public int findMax(int n) {
         int max = 0;
         for (int i=2;i<=n;i++) {
             if (dist[i] > max) {
                 max = dist[i];
             }
         }
-
-
-        for (int i=2;i<=n;i++) {
-            if (dist[i] == max) {
-                answer++;
-            }
-        }
-
-        return answer;
+        return max;
     }
+    
 }

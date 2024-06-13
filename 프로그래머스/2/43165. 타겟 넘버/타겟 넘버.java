@@ -1,3 +1,5 @@
+import java.util.*;
+
 class Solution {
     
     private static boolean visited[][];
@@ -18,20 +20,18 @@ class Solution {
             }
             return;
         }
-        
 
-        if (!visited[idx][0]) {
-            visited[idx][0] = true;
+        //if (!visited[idx][0]) {
+            //visited[idx][0] = true;
             dfs(cnt+1, sum + copy[idx], target, idx+1);
-            visited[idx][0] = false;
-        }
+            //visited[idx][0] = false;
+        // }
 
-        if (!visited[idx][1]) {
-            visited[idx][1] = true;
+        // if (!visited[idx][1]) {
+        //     visited[idx][1] = true;
             dfs(cnt+1,sum + -1 * copy[idx], target, idx+1);
-            visited[idx][1] = false;
-        }
-
+        //     visited[idx][1] = false;
+        // }
     }
 
 }

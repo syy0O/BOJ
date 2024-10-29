@@ -1,24 +1,29 @@
-// TODO: 해시맵 이용
-// 1) 폰켓몬의 종류를 key로하고, 마리수를 value로 하는 해시맵 생성
-// 2) N/2 개 선택
-    // Key 개수 <= N/2 -> key 개수
-    // Key 개수 > N/2 -> N/2
+// N마리 폰켓몬 중 -> N/2 마리
+// 종류가 같으면 같은 번호
+// 최대한 많은 종류의 폰켓몬 => N/2 마리
 
 import java.util.*;
 
 class Solution {
     public int solution(int[] nums) {
-        int N = nums.length;
-        Map<Integer, Integer> hashMap = new HashMap<>();
-        for (int i=0;i<N;i++) {
-            int type = nums[i];
-            int cnt = hashMap.getOrDefault(type,0) + 1;
-            hashMap.put(type, cnt);
+        int answer = 0;
+        int totalCnt = nums.length / 2;
+        
+        HashMap<Integer, Integer> monster = new HashMap<>();
+        for (int i=0; i< nums.length; i++) {
+            monster.put(nums[i], monster.getOrDefault(nums[i], 0) + 1);
         }
         
-    
-        int answer = (hashMap.size() <= N/2) ? hashMap.size() : N/2;
-       
+        // if 종류 수가 N/2 보다 같거나 많음 => 답: N/2
+        if (monster.size() >= totalCnt) {
+            answer = totalCnt;
+        }
+            
+        // 아니라면 => 폰켓몬 종류의 개수.
+        else {
+            answer = monster.size();
+        }
+        
         return answer;
     }
 }

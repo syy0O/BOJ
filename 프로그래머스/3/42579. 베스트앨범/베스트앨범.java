@@ -1,91 +1,84 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 class Solution {
     
-    private static HashMap<String, Genre> genresWithAlbums;
-
-    private static class Genre implements Comparable<Genre>{
-        int totalPlayCnt;
-        ArrayList<Album> albums;
-
-        public Genre(int totalPlayCnt) {
-            this.totalPlayCnt = totalPlayCnt;
-            albums = new ArrayList<>();
+    private class Genre implements Comparable<Genre>{
+        String genre;
+        int totalCnt;
+        
+        public Genre(String genre, int totalCnt) {
+            this.genre = genre;
+            this.totalCnt = totalCnt;
         }
-
-        public void addAlbum(Album album) {
-            albums.add(album);
-            Collections.sort(albums);
+        
+         public int compareTo(Genre g) {
+            return g.totalCnt - totalCnt;
         }
-
-        @Override
-        public int compareTo(Genre o) {
-            return o.totalPlayCnt - totalPlayCnt;
-        }
-    }
-
-    public static class Album implements Comparable<Album> {
-        int idx;
-        int plays;
-
-        public Album(int idx, int plays) {
-            this.idx = idx;
-            this.plays = plays;
-        }
-
-
-        @Override
-        public int compareTo(Album o) {
-            if (plays == o.plays) {
-                return idx - o.idx;
-            }
-            return o.plays - plays;
-        }
-
     }
     
+    private class Elbum implements Comparable<Elbum> {
+        int idx;
+        int playCnt;
+        
+        public Elbum(int idx, int playCnt) {
+            this.idx = idx;
+            this.playCnt = playCnt;
+        }
+        
+        public int compareTo(Elbum e) {
+            if (playCnt == e.playCnt) {
+                return idx - e.idx;
+            }
+            return e.playCnt - playCnt;
+        }
+    }
     
     public int[] solution(String[] genres, int[] plays) {
-        genresWithAlbums = new HashMap<>();
-        for (int i = 0; i < genres.length; i++) {
-            String genre = genres[i];
-            int albumPlays = plays[i];
-
-            Genre value;
-            if (!genresWithAlbums.containsKey(genre)) {
-                value = new Genre(albumPlays);
-                value.addAlbum(new Album(i, albumPlays));
-            } else {
-                value = genresWithAlbums.get(genre);
-                value.totalPlayCnt += albumPlays;
-                value.addAlbum(new Album(i, albumPlays));
+        
+        HashMap<String, ArrayList<Elbum>> bestElbum = new HashMap<>();
+        for (int i=0;i<genres.length;i++) {
+            
+            Elbum elbum = new Elbum(i,plays[i]);
+            ArrayList<Elbum> elbums = new ArrayList<>();  
+            
+            if (bestElbum.containsKey(genres[i])) {
+               elbums = bestElbum.get(genres[i]);
             }
-
-            genresWithAlbums.put(genre, value);
+            
+            elbums.add(elbum);
+            bestElbum.put(genres[i], elbums);
         }
-
-        ArrayList<Genre> orderedGenre = new ArrayList<>();
-        for (String s : genresWithAlbums.keySet()) {
-            orderedGenre.add(genresWithAlbums.get(s));
+            
+        
+        PriorityQueue<Genre> genreWithPlayCnt = new PriorityQueue<>();
+        for (String key : bestElbum.keySet()) {
+            
+            ArrayList<Elbum> elbums = bestElbum.get(key);
+            Collections.sort(elbums);
+            
+            int total = 0;
+            for (Elbum elbum : elbums) {
+                total += elbum.playCnt;
+            }
+            genreWithPlayCnt.add(new Genre(key, total));
         }
-        Collections.sort(orderedGenre);
-
-        ArrayList<Integer> results = new ArrayList<>();
-        for (Genre genre : orderedGenre) {
-            int albumCnt = genre.albums.size() > 2 ? 2 : genre.albums.size();
-            for (int i = 0; i < albumCnt; i++) {
-                Album album = genre.albums.get(i);
-                results.add(album.idx);
+        
+       
+        ArrayList<Integer> answers = new ArrayList<>();
+        while(!genreWithPlayCnt.isEmpty()) {
+            Genre curr = genreWithPlayCnt.poll();
+            ArrayList<Elbum> elbums = bestElbum.get(curr.genre);
+            int elbumSize = elbums.size() >= 2 ? 2 : elbums.size();
+            
+            for (int i=0;i<elbumSize;i++) {
+                answers.add(elbums.get(i).idx);
             }
         }
-
-        int[] answer = new int[results.size()];
-        for(int i=0;i<answer.length;i++){
-            answer[i] = results.get(i);
-        }
-
+        
+        int[] answer = answers.stream()
+			.mapToInt(i -> i)
+            .toArray();
+        
         return answer;
     }
 }

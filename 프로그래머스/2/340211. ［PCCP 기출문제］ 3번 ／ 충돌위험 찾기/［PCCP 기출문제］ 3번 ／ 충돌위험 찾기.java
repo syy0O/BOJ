@@ -59,7 +59,7 @@ class Solution {
             // 충돌 판별
             answer += getConflictCnt();
             
-            // 마지막 목적지인 로봇들은 빼내기
+            // 마지막 목적지에 도달한 로봇들은 빼내기
             int endRobotCnt = 0;
             for (int i=0;i<robotCnt;i++) {
                  Robot robot = queue.pollFirst();

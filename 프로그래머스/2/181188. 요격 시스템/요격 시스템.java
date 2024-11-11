@@ -52,19 +52,15 @@ class Solution {
         return answer;
     }
     
-    public boolean isAbleDefeat(Missile missile) { // top 범위에 걸쳤거나 포함되어있는지 확인
+     public boolean isAbleDefeat(Missile missile) { // top 범위에 걸쳤거나 포함되어있는지 확인
         Missile top = stack.peekLast();
-        
-        if (isInRange(missile)) { // 완전히 포함
+
+        if (isInRange(missile) || missile.end > top.start && missile.end <= top.end) { // 완전히 포함
             return true;
         }
-        
-        if (missile.end > top.start && missile.end <= top.end) { // 걸쳤을 떄
-            return true;
-        }
-        
         return false;
     }
+
     
     
     public boolean isInRange(Missile missile) {

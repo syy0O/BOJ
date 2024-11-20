@@ -31,7 +31,7 @@ class Solution {
         dist = new int[rows][columns];
         visited = new boolean[rows][columns];
         
-        for(int i=0;i<rows;i++) { // dist -1로 초기화
+        for(int i=0;i<rows;i++) { // dist 초기화
             Arrays.fill(dist[i], Integer.MAX_VALUE);
         }
         

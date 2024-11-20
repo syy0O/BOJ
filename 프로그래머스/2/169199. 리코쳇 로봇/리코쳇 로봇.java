@@ -66,11 +66,7 @@ class Solution {
                 int nc = now.c + dc[i];
                 
                 Node pre = null;
-                while(isInRange(nr,nc)) {
-                    if (isObstacle(nr,nc)) {
-                        break;
-                    }
-                    
+                while(isInRange(nr,nc) && !isObstacle(nr,nc)) {   
                     pre = new Node(nr,nc);
                     
                     nr += dr[i];

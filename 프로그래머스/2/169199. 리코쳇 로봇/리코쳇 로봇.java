@@ -83,7 +83,10 @@ class Solution {
         }
         
         
-        int answer = dist[goal.r][goal.c] == Integer.MAX_VALUE ? -1 : dist[goal.r][goal.c];
+        int answer = -1;
+        if (dist[goal.r][goal.c] != Integer.MAX_VALUE) {
+            answer = dist[goal.r][goal.c];
+        }
         
         return answer;
     }

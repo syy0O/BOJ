@@ -1,15 +1,15 @@
-// 완전 탐색
+// 완전 탐색 - 백트래킹(재귀를 이용한)
 
 import java.util.*;
 
 class Solution {
-    
-    private final int DIA = 0,IRON = 1,STONE = 2;
-    
+
     private int[][] fatigue = {{1,1,1},{5,1,1},{25,5,1}};
-    private HashMap<String, Integer> types;
+    private final int DIA = 0,IRON = 1, STONE = 2;
     private int answer = Integer.MAX_VALUE;
     
+    private HashMap<String, Integer> types;
+  
     public int solution(int[] picks, String[] minerals) {
         types = new HashMap<>();
         types.put("diamond", DIA);

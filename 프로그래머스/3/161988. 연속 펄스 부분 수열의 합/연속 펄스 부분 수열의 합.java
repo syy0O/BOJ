@@ -25,7 +25,6 @@ class Solution {
             answer = Math.max(answer, Math.max(dp[i][0], dp[i][1]));
         }
         
-        
         return answer;
     }
 }

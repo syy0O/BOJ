@@ -19,7 +19,6 @@ class Solution {
     
     private int ROWS, COLUMNS;
     private int startR, startC;
-    private int endR, endC;
 
     public int solution(String[] maps) {
         
@@ -35,21 +34,16 @@ class Solution {
                     startR = i;
                     startC = j;
                 }
-                
-                if (maps[i].charAt(j) == 'E') {
-                    endR = i;
-                    endC = j;
-                }
             }
         }
         
       
-        int answer = findLever(maps);
+        int answer = findLeastTime(maps);
         return answer;
     }
     
     
-    public int findLever(String[] maps) { // 출발지점에서 Lever까지
+    public int findLeastTime(String[] maps) { // 출발지점에서 Lever까지
         int times = -1;
         
         int[] dr = {0,0,-1,1};
@@ -109,5 +103,4 @@ class Solution {
         }
         return true;
     }
-    
 }

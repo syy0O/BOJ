@@ -60,8 +60,6 @@ class Solution {
                 
                 answer += workerScore.get(score);
             }
-            
-            
         }
 
         return answer;

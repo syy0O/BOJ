@@ -10,7 +10,7 @@ class Solution {
 
     public String solution(int n, int m, int x, int y, int r, int c, int k) {
         String answer = "";
-        path = new String[n+1][m+1]; // 문자열 길이가 같을 경우에는 -> 작을 경우 업데이트 // 다를 경우는 무조건 업데이트
+        path = new String[n+1][m+1]; 
         for(int i=1;i<=n;i++) {
             Arrays.fill(path[i], "");
         }
@@ -46,7 +46,7 @@ class Solution {
                 
                 if (curr.length() >= path[nr][nc].length()) {
                     
-                    String currSub = curr.substring(0,path[nr][nc].length());
+                    String currSub = curr.substring(0,path[nr][nc].length()); // 동일 크기 만큼만 비교
                     
                     if (currSub.compareTo(pre) <= 0) {
                         path[nr][nc] = curr;

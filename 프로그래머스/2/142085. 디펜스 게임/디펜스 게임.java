@@ -10,10 +10,10 @@ class Solution {
         int sum = 0;
         PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
         
-        int i;
-        for (i=0;i<enemy.length;i++) {
-            sum += enemy[i];
-            pq.add(enemy[i]);
+        int round;
+        for (round=0;round<enemy.length;round++) {
+            sum += enemy[round];
+            pq.add(enemy[round]);
             
             if (sum <= n) {
                 continue;
@@ -28,7 +28,7 @@ class Solution {
             k--;
         }
         
-        answer = i;
+        answer = round;
         
         return answer;
     }

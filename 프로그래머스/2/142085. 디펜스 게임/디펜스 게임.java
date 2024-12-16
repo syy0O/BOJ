@@ -1,0 +1,35 @@
+import java.util.*;
+
+class Solution {
+    // O(N), O(NlogN), O(logN)
+    // 그리디.
+    // 우선순위큐(enemy 내림차 정렬)
+    public int solution(int n, int k, int[] enemy) {
+        int answer = 0;
+        
+        int sum = 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        
+        int i;
+        for (i=0;i<enemy.length;i++) {
+            sum += enemy[i];
+            pq.add(enemy[i]);
+            
+            if (sum <= n) {
+                continue;
+            }
+            
+            if (k == 0) {
+                break;
+            }
+            
+            int max = pq.poll();
+            sum -= max;
+            k--;
+        }
+        
+        answer = i;
+        
+        return answer;
+    }
+}

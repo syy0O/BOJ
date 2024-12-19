@@ -37,7 +37,7 @@ public class Main {
             int z = Integer.parseInt(st.nextToken());
             temp.add(new Tree(x,y,z,true));
         }
-        Collections.sort(temp); // 나이로 내림차정렬
+        //Collections.sort(temp); // 나이로 내림차정렬
 
         trees = new ArrayDeque<>();
         for (Tree tree : temp) {

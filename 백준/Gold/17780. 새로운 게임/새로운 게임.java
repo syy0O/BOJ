@@ -82,7 +82,7 @@ public class Main{
                     ny = y + dy[curr.dir - 1];
                 }
 
-                if (!isInRange(nx, ny, n) || map[nx][ny] == BLUE) { // 방향 바꾸고 난 후 -> 다시 파라색
+                if (!isInRange(nx, ny, n) || map[nx][ny] == BLUE) { // 방향 바꾸고 난 후 -> 다시 파란색
                     continue;
                 }
                 else if (map[nx][ny] == RED) {

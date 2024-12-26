@@ -15,15 +15,15 @@ class Solution {
             a[1] = gcd(a[1], arrayB[i]);
         }
            
-        a[0] = getMaxA(a[0], arrayB);
-        a[1] = getMaxA(a[1], arrayA);
+        a[0] = getMax(a[0], arrayB);
+        a[1] = getMax(a[1], arrayA);
 
         answer = Math.max(a[0], a[1]);
         
         return answer;
     }
     
-    public int getMaxA(int a, int[] numbers) {
+    public int getMax(int a, int[] numbers) {
         for (int i=0;i<numbers.length;i++) {
             if (numbers[i] % a == 0) {
                 return 0;

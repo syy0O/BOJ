@@ -3,17 +3,18 @@ class Solution {
         double[] answer = new double[ranges.length];
         int cnt = count(k);
         
-        double[] yValue = new double[cnt+1];
-        yValue[0] = k;
+        double[] y = new double[cnt+1];
+        y[0] = k;
+        
         for(int i=1; i<cnt+1; i++){
-            double pre = yValue[i-1];
-            yValue[i] = calYValue(pre);
+            double pre = y[i-1];
+            y[i] = calculateY(pre); // 바로 직전값 넣어서 y값 구함
         }
 
         // 사다리꼴 넓이
         double[] area = new double[cnt+1];
         for(int i=1; i<cnt+1; i++){
-            area[i] = (yValue[i-1] + yValue[i])/2;
+            area[i] = (y[i-1] + y[i])/2;
         }
 
         // 넓이 누적합
@@ -52,7 +53,7 @@ class Solution {
     }
     
     
-    private static double calYValue(double pre){
+    private static double calculateY(double pre){
         if(pre%2 == 0){
             return (pre/2);
         }else{

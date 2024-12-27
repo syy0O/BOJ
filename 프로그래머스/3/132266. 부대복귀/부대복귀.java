@@ -1,63 +1,65 @@
-// 인접 리스트를 만든다,
-// 다익스트라..? -> destination에서 source들 까지의 거리
-// 거꾸로도 풀 수 있을듯..?
-
-// bfs로 풀 수 있을 듯. (간선의 모든 비용이 같으므로)
-
 import java.util.*;
 
-class Solution {
+class Solution { 
     
+    private class Node {
+        int idx;
+        int time;
+        public Node(int idx, int time) {
+            this.idx = idx;
+            this.time = time;
+        }
+    }
     
-    private static int[] dist;
-    private static ArrayList<Integer>[] edges;
-    
-    public int[] solution(int n, int[][] roads, int[] sources, int destination)     {
+    public int[] solution(int n, int[][] roads, int[] sources, int destination) {
         
-        edges = new ArrayList[n+1];
-        for (int i=0;i<=n;i++) {
+        List<Integer>[] edges = new ArrayList[n+1];
+        for (int i=1;i<=n;i++) {
             edges[i] = new ArrayList<>();
         }
-        
+ 
         for (int i=0;i<roads.length;i++) {
-            edges[roads[i][0]].add(roads[i][1]);
-            edges[roads[i][1]].add(roads[i][0]);
+            int p = roads[i][0];
+            int v = roads[i][1];
+            
+            edges[p].add(v);
+            edges[v].add(p);
         }
-       
-        bfs(n, destination);
-        
+    
         int[] answer = new int[sources.length];
-        for (int i=0; i < sources.length; i++) {
-            answer[i] = dist[sources[i]];
+        Arrays.fill(answer, -1);
+
+        for (int i=0;i<sources.length;i++) {
+            
+            boolean[] visited = new boolean[n+1];
+            
+            Deque<Node> queue = new ArrayDeque<>();
+            queue.addLast(new Node(sources[i], 0));
+            visited[sources[i]] = true;
+            
+            
+            while(!queue.isEmpty()) {
+                
+                Node now = queue.pollFirst();
+                
+                if (now.idx == destination) {
+                    answer[i] = now.time;
+                    break;
+                }
+                
+                for (int idx : edges[now.idx]) {
+                    
+                    if (!visited[idx]) {
+                        visited[idx] = true;
+                        queue.addLast(new Node(idx, now.time + 1));
+                    }
+                }
+
+            }
+
         }
-       
+        
         return answer;
     }
     
-    public static void bfs(int n, int dest) {
-        
-        // 거리 초기화
-        dist = new int[n+1];
-        Arrays.fill(dist, -1);  
-        dist[dest] = 0;
-    
-        // 방문 초기화
-        boolean[] visited = new boolean[n+1];
-        visited[dest] = true;  
-        
-        Deque<Integer> queue = new ArrayDeque<>();
-        queue.addLast(dest);
-        
-        while(!queue.isEmpty()) {  
-            int now = queue.pollFirst();
-               
-            for (int next : edges[now]) {
-                if (!visited[next]){
-                    visited[next] = true;
-                    dist[next] = dist[now] + 1;
-                    queue.addLast(next);
-                }
-            }
-        }
-    }
 }

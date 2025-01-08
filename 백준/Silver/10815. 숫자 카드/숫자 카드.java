@@ -1,52 +1,37 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import java.io.OutputStreamWriter;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 
-public class Main { // 숫자 카드 (Binary Search)
-
-    public static int cards[];
-    public static int binarySearch(int target){
-
-        int low = 0;
-        int high = cards.length-1;
-        int mid;
-
-        while(low<=high){
-            mid = (low+high)/2;
-            if (cards[mid] == target)
-                return 1;
-            else if (cards[mid] > target)
-                high = mid - 1;
-            else
-                low = mid + 1;
-        }
-        return 0;
-    }
+public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); // 입력
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
         int N = Integer.parseInt(br.readLine());
-        cards = new int[N];
-        StringTokenizer st;
 
-        st = new StringTokenizer(br.readLine());
-        for (int i=0; i<N;i++)
-            cards[i] = Integer.parseInt(st.nextToken());
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        Arrays.sort(cards);
+        Set<Integer> numbers = new HashSet<>();
+        for (int i = 0; i < N; i++) {
+            numbers.add(Integer.parseInt(st.nextToken()));
+        }
 
         int M = Integer.parseInt(br.readLine());
-        int [] search = new int[M];
-
         st = new StringTokenizer(br.readLine());
-        for (int i=0; i<M;i++)
-            search[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < M; i++) {
+            int num = Integer.parseInt(st.nextToken());
+            int ans = numbers.contains(num) ? 1 : 0;
+            bw.write(ans + " ");
+        }
 
+        bw.flush();
 
-        for (int i=0 ; i<M; i++)
-            System.out.print(binarySearch(search[i])+" ");
-
+        br.close();
+        bw.close();
     }
 }

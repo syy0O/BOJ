@@ -50,17 +50,15 @@ class Solution {
             }
         }
         
-        int cnt = 0;
         for (int i=0;i<rows;i++) {
             for (int j=0;j<cols;j++) {
                 board[i][j] += val[i][j];
-                if (board[i][j] <= 0) {
-                    cnt++;
+                if (board[i][j] > 0) {
+                    answer++;
                 }
             }
         }
         
-        answer = rows * cols - cnt;
         
         return answer;
     }

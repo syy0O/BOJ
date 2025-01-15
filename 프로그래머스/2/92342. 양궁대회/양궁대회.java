@@ -65,16 +65,18 @@ class Solution {
         
         
         for (int i=0;i<11;i++) {
-            if (apeach[i] == 0 && ryan[i] == 0) {
-                continue; 
+            // if (apeach[i] == 0 && ryan[i] == 0) {
+            //     continue; 
+            // }
+            if (apeach[i] != 0 || ryan[i] != 0) {
+                 if (ryan[i] > apeach[i]) {
+                    ryanScore += (10 - i);
+                }
+                else {
+                    apeachScore += (10 - i);
+                }
             }
-            
-            if (ryan[i] > apeach[i]) {
-                ryanScore += (10 - i);
-            }
-            else {
-                apeachScore += (10 - i);
-            }
+           
         }
       
         int diff = ryanScore - apeachScore;

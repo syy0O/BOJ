@@ -5,7 +5,7 @@ class Solution {
 
     public int[] solution(int[] fees, String[] records) {
         Map<String, Integer> in = new HashMap<>();
-        Map<String, Integer> cost = new TreeMap<>();
+        Map<String, Integer> cost = new TreeMap<>(); // 기본은 키값에 대해 오름차 정렬
 
         for (String record : records) {
             StringTokenizer st = new StringTokenizer(record);

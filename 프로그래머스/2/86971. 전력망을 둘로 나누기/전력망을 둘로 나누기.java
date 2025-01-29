@@ -8,12 +8,12 @@ class Solution {
         graph = new ArrayList[n + 1];
         min = Integer.MAX_VALUE;
  
-      
+        // 그래프 ArrayList 초기화. 노드 개수만큼 ArrayList 생성
         for (int i = 1; i <= n; i++) {
             graph[i] = new ArrayList<>();
         }
  
-       
+        // 양방향 간선 구조이므로 두 번 add를 해준다
         for (int i = 0; i < wires.length; i++) {
             int v1 = wires[i][0];
             int v2 = wires[i][1];

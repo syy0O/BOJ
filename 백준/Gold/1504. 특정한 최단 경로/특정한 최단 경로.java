@@ -51,13 +51,13 @@ public class Main {
 
         // 1 - A - B - N
         // 1 - B - A - N
-        int[] startFromOne = findMinPath(1, N);
+        //int[] startFromOne = findMinPath(1, N);
         int[] startFromV1 = findMinPath(v1, N);
         int[] startFromV2 = findMinPath(v2, N);
 
         // INF 설정 잘해야할듯. (int 범위 안넘어가게)
-        int pathStartToV1 = startFromOne[v1] + startFromV1[v2] + startFromV2[N];
-        int pathStartToV2 = startFromOne[v2] + startFromV2[v1] + startFromV1[N];
+        int pathStartToV1 = startFromV1[1] + startFromV1[v2] + startFromV2[N];
+        int pathStartToV2 = startFromV2[1] + startFromV2[v1] + startFromV1[N];
 
         int answer = Math.min(pathStartToV1, pathStartToV2);
         if (answer >= INF) {

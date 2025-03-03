@@ -1,5 +1,8 @@
 import java.util.*;
 
+// 빛 이동했던거 생각남. (빛 이동 통로 방향별로 visit[][][][dir] 했던거)
+// 2024 하반기 - 현대 오토에버 코테 생각남 (t에따라 3차원 dp[][][] + bfs)
+
 class Solution {
     
     private static class Road {

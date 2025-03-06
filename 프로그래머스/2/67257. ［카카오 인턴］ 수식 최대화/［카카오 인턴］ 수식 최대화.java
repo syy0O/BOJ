@@ -28,7 +28,7 @@ class Solution {
         
         stack.addLast(sb.toString());
         
-        String[] operator = set.toArray(new String[0]); 
+        String[] operator = set.toArray(new String[0]);
         used = new boolean[operator.length];
         
         permutateOp(operator, new String[operator.length], 0);
@@ -56,8 +56,7 @@ class Solution {
     public long calculate(String[] priority) {
         long res = 0;
         Deque<String> origin = new ArrayDeque<>(stack);
-        for (int i=0;i<priority.length;i++) { // + -
-    
+        for (int i=0;i<priority.length;i++) {
             String operator = priority[i];
             Deque<String> temp = new ArrayDeque<>();
             

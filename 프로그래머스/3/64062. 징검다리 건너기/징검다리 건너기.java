@@ -1,6 +1,7 @@
 import java.util.*;
 
 class Solution {
+    // 슬라이딩 윈도우를 쓴 이유 -> 직전 돌에서 갈 수 있는 선택지.
     public int solution(int[] stones, int k) {
         int answer = Integer.MAX_VALUE;
         Deque<Integer> deque = new ArrayDeque<>();
